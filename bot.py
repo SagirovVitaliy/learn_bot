@@ -17,19 +17,16 @@ def greet_user(update, context):
 
 
 def planet(update, context):
-    update.message.reply_text('Введи планету!')
-    print('Ввод планеты')   
-
-
-def open_planet(update, context):
     date = datetime.date.today()
-    planeta = update.message.text
-    if planeta == 'Mars' or 'mars':
-        a = ephem.Mars(date)
-        b = ephem.constellation(a)
-        print(b)
-    update.message.reply_text(b) 
-#Не понял где тут .split() использовать и зачем, если так всё работает. 
+    planeta = update.message.text.split()
+    print(date)
+    print(planeta)
+    if planeta[1] == 'Mars' or 'mars':
+        a = ephem.Mars(date)    
+        constellation = ephem.constellation(a)
+        print(constellation)
+    update.message.reply_text(f'на {date} планета находится в созвездии {constellation}') 
+
 
 def main():
     mybot = Updater(settings.API_KEY, use_context=True, request_kwargs=PROXY)
@@ -38,7 +35,8 @@ def main():
 
     dp.add_handler(CommandHandler('start', greet_user))
     dp.add_handler(CommandHandler('planet', planet))
-    dp.add_handler(MessageHandler(Filters.text, open_planet))
+    dp.add_handler(MessageHandler(Filters.text, planet))
+    
 
     logging.info("Бот стартовал")
 
