@@ -1,11 +1,15 @@
 import ephem
-import datetime
+
+# print(ephem._libastro.builtin_planets())
+
+b = 'pluto'
 
 
-date = datetime.date.today()
-
-a = ephem.Mars(date)
-print(ephem.constellation(a))
+b = ([name for m, x, name in ephem._libastro.builtin_planets()])
 
 
-#print(real_planet(planeta, date))
+
+print(b[:8])
+
+#if b in k:
+    #print('da')
