@@ -89,6 +89,14 @@ def planet(update, context):
         update.message.reply_text(f'планета {need_planet} не найдена')
 
 
+def wordcount(update, context):
+    print(context.args)
+    if len(context.args) == 0:
+        message = 'Введите слова'
+    else:
+        message = f'{len(context.args)} слова'    
+    update.message.reply_text(message)
+
 
 def main():
     mybot = Updater(settings.API_KEY, use_context=True, request_kwargs=PROXY)
@@ -99,6 +107,7 @@ def main():
     dp.add_handler(CommandHandler('planet', planet))
     dp.add_handler(CommandHandler('guess', guess_numder))
     dp.add_handler(CommandHandler('cat', send_cat_picture))
+    dp.add_handler(CommandHandler('wordcount', wordcount))
 
     dp.add_handler(MessageHandler(Filters.text, conversation))
     
